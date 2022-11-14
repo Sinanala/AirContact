@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+header{
+    background-color: rgb(19, 95, 146,0.8);
+}
+body{
+    background-color: rgb(91, 144, 194);
+
+    background-size: 100% 120%;
+    
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+}
+html{
+    font-family: 'Xanh Mono', monospace;
+    
+}
+#navbar{
+    color: #fff;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 0.75rem;
+    height: 70px;
+}
+#navbar img{
+    
+    width: 75px;
+    height: 100%;
+    font-size: 50px;
+
+}
+#navbar h1{
+    padding: 10px;
+    padding-right: 100px;
+
+}
+#navbar ul{
+    list-style-type: none;
+    display: flex;
+    
+}
+#navbar ul li a{
+font-size: 1.5rem;
+    padding: 1rem;
+}
+a:hover{
+    background-color: rgb(19, 95, 146);
+    color: rgb(47, 196, 196);
+}
+#navbar i{
+    padding-left: 150px;
+    padding-right: 10px;
+    font-size: 22px;
+}
+#navbar input{
+    width: 400px;
+    height: 30px;
+    font-size: medium;
+    border: 5px;
+    border-radius: 5px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+.container2{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.box{
+    
+    height: 120px;
+    margin-top: 1.5rem;
+    margin-left: 1.5rem;
+    text-align: center;
+    background-color: silver;
+    width: 200px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.container2 h2{
+    margin-top: 20px;
+    margin-bottom: 0px;
+    margin-left: 1rem;
+    color: rgb(243, 243, 243);
+    font-size: 1.2em;
+    
+}
+*.nerds-iframe{
+    position: relative;
+    margin-left: 13em;
+    width: 1678px;
+    height: 1000px;
+    bottom: 810px;
+    
+}
+.container2 h1{
+    font-size: 1em;
+}
+
+
+
+
+
+
+
+
+
