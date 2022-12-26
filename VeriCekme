@@ -1,0 +1,112 @@
+import requests
+from bs4 import BeautifulSoup
+from html.parser import HTMLParser
+import pymongo
+from pymongo import MongoClient
+import datetime
+myclient = pymongo.MongoClient("mongodb+srv://sinan:<PASSWORDDDD>@cluster0.owcbj1e.mongodb.net/?retryWrites=true&w=majority")
+mydatabase=myclient["airContact"]
+liste6=[]
+def webScarping(URL):
+    response=requests.get(URL)
+    html_icerigi=response.content
+    soup=BeautifulSoup(html_icerigi,"html.parser")
+    table=soup.find_all("table",attrs={"data-type":"arrivals"})
+
+    liste=[]
+    class MyHTMLParser(HTMLParser):
+
+        
+        def handle_data(self, data):
+            #print(data,end="")
+            data=data.split(' ')
+            liste.append(data)
+        
+
+    table=str(table)
+    parser=MyHTMLParser()
+    parser.feed(table)
+    liste=liste[19:]
+
+    def remove_values_from_list(the_list, val):
+        return [value for value in the_list if value != val]
+    def remove_from_list(the_list):
+        liste5=[]
+        for value in the_list:
+            if(len(value[0])!=3):
+                liste5.append(value)
+            if(value[0]=='Van'):
+                liste5.append(value)
+                
+        return liste5
+
+
+
+    liste2=remove_values_from_list(liste,['', ''])
+    liste2=remove_values_from_list(liste2,[')'])
+    liste2=remove_values_from_list(liste2,['+03'])
+    liste2=remove_values_from_list(liste2,['('])
+    liste2=remove_values_from_list(liste2,['EET'])
+    liste2=remove_values_from_list(liste2,['CET'])
+    liste2=remove_from_list(liste2)
+    
+    liste4=[]
+    x=datetime.datetime.now()
+    y=datetime.datetime.now()
+    z=datetime.datetime.now()
+    x=x.day
+    y=y.month
+    z=z.year
+    
+
+    for i in range(0,len(liste2),5):
+        liste3=[]
+        if(len(liste2)-i<5):
+            break
+        liste3.append(liste2[i][0])
+        liste3.append(liste2[i+1][0])
+        liste3.append(liste2[i+2][0])
+        liste3.append(liste2[i+3][0])
+        liste3.append(liste2[i+4][0])
+        liste4.append(liste3)   
+    for i in liste4:
+        fligts={
+        "Kimlik":"",
+        "Tip":"",
+        "Nereden":"",
+        "Kalkış":"",
+        "Varış":"",
+        
+        
+        
+    }
+        fligts["Kimlik"]=i[0]
+        fligts["Tip"]=i[1]
+        fligts["Nereden"]=i[2]
+        fligts["Kalkış"]=i[3]
+        fligts["Varış"]=i[4]
+        liste6.append(fligts)
+
+limanlar=['LTAF','LTCP','LTCO','LTAP','LTAC','LTAI','LTFG','LTFO','LTBD','LTBF',
+	      'LTFD','LTCU','LTBH','LTAY','LTCC','LTBU','LTCA','LTCD','LTCE','LTAJ','LTCB',
+	      'LTCW','LTDA','LTFC','LTFJ','LTFM','LTBJ','LTCF','LTAL','LTAU','LTAN','LTBZ',
+	      'LTAT','LTCN','LTCR','LTCK','LTAZ','LTFH','LTCL','LTCM','LTAR',
+           'LTAW','LTCG','LTCS','LTBO','LTCI','LTAS','LTCJ','LTCV','LTCT']
+
+limanAd=['Adana','Adıyaman','Agrı','Amasya','Ankara','Antalya','Gazipasa','Rize-Artvin',
+         'Aydın','Balikesir','EdremitKorfez','Bingol','Canakkale','Denizli','Diyarbakir',
+         'Corlu','Elazıg','Erzincan','Erzurum','Gaziantep','Ordu-Giresun','Hakkari','Hatay',
+         'Isparta','Isabıha','Istanbul','Izmır','Kars','Kastamonu','Kayseri','Konya','Kutahya',
+         'Malatya','Kahramanmaras','Mardin','Mus','Nevsehir','Samsun','Siirt','Sinop','Sivas',
+         'Tokat','Trabzon','Sanlıurfa','Usak','Van','Zonguldak','Batman','Sırnak','Igdır']
+tut="https://flightaware.com/live/airport/"
+
+
+
+for i in range(50):
+    webScarping(tut+limanlar[i])
+    mycollections=mydatabase[limanAd[i]]
+    x=mycollections.insert_many(liste6)
+    
+    liste6=[]
+       
