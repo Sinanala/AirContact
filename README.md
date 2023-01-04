@@ -2,3 +2,4 @@ Amaç :  Uçuş ve havalimanı bilgilerini web sitesi üzerinde harita ve bar i�
 Scrum Master: Bahadır Demirel 200541011
 Developer : Sinan Balıbey 200541059
 Product Owner : Bahadır Demirel 200541011
+.
